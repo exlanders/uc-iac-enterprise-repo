@@ -1,0 +1,34 @@
+version: 0.2
+
+env:
+  variables:
+    ENVIRONMENT: dev
+    TF_IN_AUTOMATION: 1
+    TERRAFORM_VERSION: 1.2.1
+    TERRATEST_VERSION: v0.40.4
+    BASE_PATH: terraform/
+    #TEST_ACCOUNT_ASSUMED_ROLE: "" In case of cross deployment this is the role in the target account.
+
+phases:
+  install:
+    runtime-versions:
+      golang: 1.16
+      python: 3.8
+    commands:
+      - echo Installing Terraform...
+      - echo "Installing Terraform"
+      - curl -s -qL -o terraform_install.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+      - unzip terraform_install.zip -d /usr/bin/
+      - chmod +x /usr/bin/terraform
+  pre_build:
+    commands:
+      - echo Starting pre-build...
+  build:
+    commands:
+      - echo Starting build...
+      - terraform --version
+      - cd ./terraform
+      - terraform init
+  post_build:
+    commands:
+      - echo Test Performed completed on `date`
