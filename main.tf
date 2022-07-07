@@ -32,7 +32,7 @@ module "ec2-001" {
   subnet_id              = module.vpc.private_subnets[0]
 
   tags = {
-    deployment-type     = "terraform"
+    deployment-type     = "uc-terraform-demo"
     environment         = "poc"
     project-id        = "landers-poc-002"
   }
@@ -49,7 +49,7 @@ module "ec2-002" {
   subnet_id              = module.vpc.private_subnets[0]
 
   tags = {
-    deployment-type     = "terraform"
+    deployment-type     = "uc-terraform-demo"
     environment         = "poc"
     project-id        = "landers-poc-002"
   }
@@ -66,7 +66,7 @@ module "ec2-003" {
   subnet_id              = module.vpc.private_subnets[0]
 
   tags = {
-    deployment-type     = "terraform"
+    deployment-type     = "uc-terraform-demo"
     environment         = "poc"
     project-id        = "landers-poc-002"
   }
@@ -82,7 +82,7 @@ module "ec2-004" {
   subnet_id              = module.vpc.private_subnets[0]
 
   tags = {
-    deployment-type     = "terraform"
+    deployment-type     = "uc-terraform-demo"
     environment         = "poc"
     project-id        = "landers-poc-002"
   }
@@ -99,7 +99,7 @@ module "ec2-005" {
   subnet_id              = module.vpc.private_subnets[0]
 
   tags = {
-    deployment-type     = "terraform"
+    deployment-type     = "uc-terraform-demo"
     environment         = "poc"
     project-id        = "landers-poc-002"
   }

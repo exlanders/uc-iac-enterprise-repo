@@ -1,1194 +1,678 @@
-variable "create_vpc" {
-  description = "Controls if VPC should be created (it affects almost all resources)"
+variable "create" {
+  description = "Controls whether resources should be created"
   type        = bool
   default     = true
 }
 
-variable "name" {
-  description = "Name to be used on all the resources as identifier"
-  type        = string
-  default     = ""
-}
-
-variable "cidr" {
-  description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
-  type        = string
-  default     = "0.0.0.0/0"
-}
-
-variable "enable_ipv6" {
-  description = "Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IP addresses, or the size of the CIDR block."
-  type        = bool
-  default     = false
-}
-
-variable "private_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 private subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "public_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 public subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "outpost_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 outpost subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "database_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 database subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "redshift_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 redshift subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "elasticache_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 elasticache subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "intra_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 intra subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = false
-}
-
-variable "private_subnet_assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on private subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = null
-}
-
-variable "public_subnet_assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on public subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = null
-}
-
-variable "outpost_subnet_assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on outpost subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = null
-}
-
-variable "database_subnet_assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on database subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = null
-}
-
-variable "redshift_subnet_assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on redshift subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = null
-}
-
-variable "elasticache_subnet_assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on elasticache subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = null
-}
-
-variable "intra_subnet_assign_ipv6_address_on_creation" {
-  description = "Assign IPv6 address on intra subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
-  type        = bool
-  default     = null
-}
-
-variable "secondary_cidr_blocks" {
-  description = "List of secondary CIDR blocks to associate with the VPC to extend the IP Address pool"
-  type        = list(string)
-  default     = []
-}
-
-variable "instance_tenancy" {
-  description = "A tenancy option for instances launched into the VPC"
-  type        = string
-  default     = "default"
-}
-
-variable "public_subnet_suffix" {
-  description = "Suffix to append to public subnets name"
-  type        = string
-  default     = "public"
-}
-
-variable "private_subnet_suffix" {
-  description = "Suffix to append to private subnets name"
-  type        = string
-  default     = "private"
-}
-
-variable "outpost_subnet_suffix" {
-  description = "Suffix to append to outpost subnets name"
-  type        = string
-  default     = "outpost"
-}
-
-variable "intra_subnet_suffix" {
-  description = "Suffix to append to intra subnets name"
-  type        = string
-  default     = "intra"
-}
-
-variable "database_subnet_suffix" {
-  description = "Suffix to append to database subnets name"
-  type        = string
-  default     = "db"
-}
-
-variable "redshift_subnet_suffix" {
-  description = "Suffix to append to redshift subnets name"
-  type        = string
-  default     = "redshift"
-}
-
-variable "elasticache_subnet_suffix" {
-  description = "Suffix to append to elasticache subnets name"
-  type        = string
-  default     = "elasticache"
-}
-
-variable "public_subnets" {
-  description = "A list of public subnets inside the VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "private_subnets" {
-  description = "A list of private subnets inside the VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "outpost_subnets" {
-  description = "A list of outpost subnets inside the VPC"
-  type        = list(string)
-  default     = []
-}
-
-variable "database_subnets" {
-  description = "A list of database subnets"
-  type        = list(string)
-  default     = []
-}
-
-variable "redshift_subnets" {
-  description = "A list of redshift subnets"
-  type        = list(string)
-  default     = []
-}
-
-variable "elasticache_subnets" {
-  description = "A list of elasticache subnets"
-  type        = list(string)
-  default     = []
-}
-
-variable "intra_subnets" {
-  description = "A list of intra subnets"
-  type        = list(string)
-  default     = []
-}
-
-variable "create_database_subnet_route_table" {
-  description = "Controls if separate route table for database should be created"
-  type        = bool
-  default     = false
-}
-
-variable "create_redshift_subnet_route_table" {
-  description = "Controls if separate route table for redshift should be created"
-  type        = bool
-  default     = false
-}
-
-variable "enable_public_redshift" {
-  description = "Controls if redshift should have public routing table"
-  type        = bool
-  default     = false
-}
-
-variable "create_elasticache_subnet_route_table" {
-  description = "Controls if separate route table for elasticache should be created"
-  type        = bool
-  default     = false
-}
-
-variable "create_database_subnet_group" {
-  description = "Controls if database subnet group should be created (n.b. database_subnets must also be set)"
+variable "create_package" {
+  description = "Controls whether Lambda package should be created"
   type        = bool
   default     = true
 }
 
-variable "create_elasticache_subnet_group" {
-  description = "Controls if elasticache subnet group should be created"
+variable "create_function" {
+  description = "Controls whether Lambda Function resource should be created"
   type        = bool
   default     = true
 }
 
-variable "create_redshift_subnet_group" {
-  description = "Controls if redshift subnet group should be created"
+variable "create_layer" {
+  description = "Controls whether Lambda Layer resource should be created"
+  type        = bool
+  default     = false
+}
+
+variable "create_role" {
+  description = "Controls whether IAM role for Lambda Function should be created"
   type        = bool
   default     = true
 }
 
-variable "create_database_internet_gateway_route" {
-  description = "Controls if an internet gateway route for public database access should be created"
-  type        = bool
-  default     = false
-}
-
-variable "create_database_nat_gateway_route" {
-  description = "Controls if a nat gateway route should be created to give internet access to the database subnets"
-  type        = bool
-  default     = false
-}
-
-variable "azs" {
-  description = "A list of availability zones names or ids in the region"
-  type        = list(string)
-  default     = []
-}
-
-variable "enable_dns_hostnames" {
-  description = "Should be true to enable DNS hostnames in the VPC"
-  type        = bool
-  default     = false
-}
-
-variable "enable_dns_support" {
-  description = "Should be true to enable DNS support in the VPC"
-  type        = bool
-  default     = true
-}
-
-variable "enable_classiclink" {
-  description = "Should be true to enable ClassicLink for the VPC. Only valid in regions and accounts that support EC2 Classic."
-  type        = bool
-  default     = null
-}
-
-variable "enable_classiclink_dns_support" {
-  description = "Should be true to enable ClassicLink DNS Support for the VPC. Only valid in regions and accounts that support EC2 Classic."
-  type        = bool
-  default     = null
-}
-
-variable "enable_nat_gateway" {
-  description = "Should be true if you want to provision NAT Gateways for each of your private networks"
-  type        = bool
-  default     = false
-}
-
-variable "nat_gateway_destination_cidr_block" {
-  description = "Used to pass a custom destination route for private NAT Gateway. If not specified, the default 0.0.0.0/0 is used as a destination route."
-  type        = string
-  default     = "0.0.0.0/0"
-}
-
-variable "single_nat_gateway" {
-  description = "Should be true if you want to provision a single shared NAT Gateway across all of your private networks"
-  type        = bool
-  default     = false
-}
-
-variable "one_nat_gateway_per_az" {
-  description = "Should be true if you want only one NAT Gateway per availability zone. Requires `var.azs` to be set, and the number of `public_subnets` created to be greater than or equal to the number of availability zones specified in `var.azs`."
-  type        = bool
-  default     = false
-}
-
-variable "reuse_nat_ips" {
-  description = "Should be true if you don't want EIPs to be created for your NAT Gateways and will instead pass them in via the 'external_nat_ip_ids' variable"
-  type        = bool
-  default     = false
-}
-
-variable "external_nat_ip_ids" {
-  description = "List of EIP IDs to be assigned to the NAT Gateways (used in combination with reuse_nat_ips)"
-  type        = list(string)
-  default     = []
-}
-
-variable "external_nat_ips" {
-  description = "List of EIPs to be used for `nat_public_ips` output (used in combination with reuse_nat_ips and external_nat_ip_ids)"
-  type        = list(string)
-  default     = []
-}
-
-variable "map_public_ip_on_launch" {
-  description = "Should be false if you do not want to auto-assign public IP on launch"
-  type        = bool
-  default     = true
-}
-
-variable "customer_gateways" {
-  description = "Maps of Customer Gateway's attributes (BGP ASN and Gateway's Internet-routable external IP address)"
-  type        = map(map(any))
-  default     = {}
-}
-
-variable "enable_vpn_gateway" {
-  description = "Should be true if you want to create a new VPN Gateway resource and attach it to the VPC"
-  type        = bool
-  default     = false
-}
-
-variable "vpn_gateway_id" {
-  description = "ID of VPN Gateway to attach to the VPC"
-  type        = string
-  default     = ""
-}
-
-variable "amazon_side_asn" {
-  description = "The Autonomous System Number (ASN) for the Amazon side of the gateway. By default the virtual private gateway is created with the current default Amazon ASN."
-  type        = string
-  default     = "64512"
-}
-
-variable "vpn_gateway_az" {
-  description = "The Availability Zone for the VPN Gateway"
-  type        = string
-  default     = null
-}
-
-variable "propagate_intra_route_tables_vgw" {
-  description = "Should be true if you want route table propagation"
-  type        = bool
-  default     = false
-}
-
-variable "propagate_private_route_tables_vgw" {
-  description = "Should be true if you want route table propagation"
-  type        = bool
-  default     = false
-}
-
-variable "propagate_public_route_tables_vgw" {
-  description = "Should be true if you want route table propagation"
-  type        = bool
-  default     = false
-}
-
-variable "manage_default_route_table" {
-  description = "Should be true to manage default route table"
-  type        = bool
-  default     = false
-}
-
-variable "default_route_table_name" {
-  description = "Name to be used on the default route table"
-  type        = string
-  default     = null
-}
-
-variable "default_route_table_propagating_vgws" {
-  description = "List of virtual gateways for propagation"
-  type        = list(string)
-  default     = []
-}
-
-variable "default_route_table_routes" {
-  description = "Configuration block of routes. See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_route_table#route"
-  type        = list(map(string))
-  default     = []
-}
-
-variable "default_route_table_tags" {
-  description = "Additional tags for the default route table"
-  type        = map(string)
-  default     = {}
-}
-
-variable "tags" {
-  description = "A map of tags to add to all resources"
-  type        = map(string)
-  default     = {}
-}
-
-variable "vpc_tags" {
-  description = "Additional tags for the VPC"
-  type        = map(string)
-  default     = {}
-}
-
-variable "igw_tags" {
-  description = "Additional tags for the internet gateway"
-  type        = map(string)
-  default     = {}
-}
-
-variable "public_subnet_tags" {
-  description = "Additional tags for the public subnets"
-  type        = map(string)
-  default     = {}
-}
-
-variable "private_subnet_tags" {
-  description = "Additional tags for the private subnets"
-  type        = map(string)
-  default     = {}
-}
-
-variable "outpost_subnet_tags" {
-  description = "Additional tags for the outpost subnets"
-  type        = map(string)
-  default     = {}
-}
-
-variable "public_route_table_tags" {
-  description = "Additional tags for the public route tables"
-  type        = map(string)
-  default     = {}
-}
-
-variable "private_route_table_tags" {
-  description = "Additional tags for the private route tables"
-  type        = map(string)
-  default     = {}
-}
-
-variable "database_route_table_tags" {
-  description = "Additional tags for the database route tables"
-  type        = map(string)
-  default     = {}
-}
-
-variable "redshift_route_table_tags" {
-  description = "Additional tags for the redshift route tables"
-  type        = map(string)
-  default     = {}
-}
-
-variable "elasticache_route_table_tags" {
-  description = "Additional tags for the elasticache route tables"
-  type        = map(string)
-  default     = {}
-}
-
-variable "intra_route_table_tags" {
-  description = "Additional tags for the intra route tables"
-  type        = map(string)
-  default     = {}
-}
-
-variable "database_subnet_group_name" {
-  description = "Name of database subnet group"
-  type        = string
-  default     = null
-}
-
-variable "database_subnet_tags" {
-  description = "Additional tags for the database subnets"
-  type        = map(string)
-  default     = {}
-}
-
-variable "database_subnet_group_tags" {
-  description = "Additional tags for the database subnet group"
-  type        = map(string)
-  default     = {}
-}
-
-variable "redshift_subnet_tags" {
-  description = "Additional tags for the redshift subnets"
-  type        = map(string)
-  default     = {}
-}
-
-variable "redshift_subnet_group_name" {
-  description = "Name of redshift subnet group"
-  type        = string
-  default     = null
-}
-
-variable "redshift_subnet_group_tags" {
-  description = "Additional tags for the redshift subnet group"
-  type        = map(string)
-  default     = {}
-}
-
-variable "elasticache_subnet_group_name" {
-  description = "Name of elasticache subnet group"
-  type        = string
-  default     = null
-}
-
-variable "elasticache_subnet_group_tags" {
-  description = "Additional tags for the elasticache subnet group"
-  type        = map(string)
-  default     = {}
-}
-
-variable "elasticache_subnet_tags" {
-  description = "Additional tags for the elasticache subnets"
-  type        = map(string)
-  default     = {}
-}
-
-variable "intra_subnet_tags" {
-  description = "Additional tags for the intra subnets"
-  type        = map(string)
-  default     = {}
-}
-
-variable "public_acl_tags" {
-  description = "Additional tags for the public subnets network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "private_acl_tags" {
-  description = "Additional tags for the private subnets network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "outpost_acl_tags" {
-  description = "Additional tags for the outpost subnets network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "intra_acl_tags" {
-  description = "Additional tags for the intra subnets network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "database_acl_tags" {
-  description = "Additional tags for the database subnets network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "redshift_acl_tags" {
-  description = "Additional tags for the redshift subnets network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "elasticache_acl_tags" {
-  description = "Additional tags for the elasticache subnets network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "dhcp_options_tags" {
-  description = "Additional tags for the DHCP option set (requires enable_dhcp_options set to true)"
-  type        = map(string)
-  default     = {}
-}
-
-variable "nat_gateway_tags" {
-  description = "Additional tags for the NAT gateways"
-  type        = map(string)
-  default     = {}
-}
-
-variable "nat_eip_tags" {
-  description = "Additional tags for the NAT EIP"
-  type        = map(string)
-  default     = {}
-}
-
-variable "customer_gateway_tags" {
-  description = "Additional tags for the Customer Gateway"
-  type        = map(string)
-  default     = {}
-}
-
-variable "vpn_gateway_tags" {
-  description = "Additional tags for the VPN gateway"
-  type        = map(string)
-  default     = {}
-}
-
-variable "vpc_flow_log_tags" {
-  description = "Additional tags for the VPC Flow Logs"
-  type        = map(string)
-  default     = {}
-}
-
-variable "vpc_flow_log_permissions_boundary" {
-  description = "The ARN of the Permissions Boundary for the VPC Flow Log IAM Role"
-  type        = string
-  default     = null
-}
-
-variable "enable_dhcp_options" {
-  description = "Should be true if you want to specify a DHCP options set with a custom domain name, DNS servers, NTP servers, netbios servers, and/or netbios server type"
-  type        = bool
-  default     = false
-}
-
-variable "dhcp_options_domain_name" {
-  description = "Specifies DNS name for DHCP options set (requires enable_dhcp_options set to true)"
-  type        = string
-  default     = ""
-}
-
-variable "dhcp_options_domain_name_servers" {
-  description = "Specify a list of DNS server addresses for DHCP options set, default to AWS provided (requires enable_dhcp_options set to true)"
-  type        = list(string)
-  default     = ["AmazonProvidedDNS"]
-}
-
-variable "dhcp_options_ntp_servers" {
-  description = "Specify a list of NTP servers for DHCP options set (requires enable_dhcp_options set to true)"
-  type        = list(string)
-  default     = []
-}
-
-variable "dhcp_options_netbios_name_servers" {
-  description = "Specify a list of netbios servers for DHCP options set (requires enable_dhcp_options set to true)"
-  type        = list(string)
-  default     = []
-}
-
-variable "dhcp_options_netbios_node_type" {
-  description = "Specify netbios node_type for DHCP options set (requires enable_dhcp_options set to true)"
-  type        = string
-  default     = ""
-}
-
-variable "manage_default_vpc" {
-  description = "Should be true to adopt and manage Default VPC"
-  type        = bool
-  default     = false
-}
-
-variable "default_vpc_name" {
-  description = "Name to be used on the Default VPC"
-  type        = string
-  default     = null
-}
-
-variable "default_vpc_enable_dns_support" {
-  description = "Should be true to enable DNS support in the Default VPC"
-  type        = bool
-  default     = true
-}
-
-variable "default_vpc_enable_dns_hostnames" {
-  description = "Should be true to enable DNS hostnames in the Default VPC"
-  type        = bool
-  default     = false
-}
-
-variable "default_vpc_enable_classiclink" {
-  description = "Should be true to enable ClassicLink in the Default VPC"
-  type        = bool
-  default     = false
-}
-
-variable "default_vpc_tags" {
-  description = "Additional tags for the Default VPC"
-  type        = map(string)
-  default     = {}
-}
-
-variable "manage_default_network_acl" {
-  description = "Should be true to adopt and manage Default Network ACL"
-  type        = bool
-  default     = false
-}
-
-variable "default_network_acl_name" {
-  description = "Name to be used on the Default Network ACL"
-  type        = string
-  default     = null
-}
-
-variable "default_network_acl_tags" {
-  description = "Additional tags for the Default Network ACL"
-  type        = map(string)
-  default     = {}
-}
-
-variable "public_dedicated_network_acl" {
-  description = "Whether to use dedicated network ACL (not default) and custom rules for public subnets"
-  type        = bool
-  default     = false
-}
-
-variable "private_dedicated_network_acl" {
-  description = "Whether to use dedicated network ACL (not default) and custom rules for private subnets"
-  type        = bool
-  default     = false
-}
-
-variable "outpost_dedicated_network_acl" {
-  description = "Whether to use dedicated network ACL (not default) and custom rules for outpost subnets"
-  type        = bool
-  default     = false
-}
-
-variable "intra_dedicated_network_acl" {
-  description = "Whether to use dedicated network ACL (not default) and custom rules for intra subnets"
-  type        = bool
-  default     = false
-}
-
-variable "database_dedicated_network_acl" {
-  description = "Whether to use dedicated network ACL (not default) and custom rules for database subnets"
-  type        = bool
-  default     = false
-}
-
-variable "redshift_dedicated_network_acl" {
-  description = "Whether to use dedicated network ACL (not default) and custom rules for redshift subnets"
-  type        = bool
-  default     = false
-}
-
-variable "elasticache_dedicated_network_acl" {
-  description = "Whether to use dedicated network ACL (not default) and custom rules for elasticache subnets"
-  type        = bool
-  default     = false
-}
-
-variable "default_network_acl_ingress" {
-  description = "List of maps of ingress rules to set on the Default Network ACL"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_no    = 100
-      action     = "allow"
-      from_port  = 0
-      to_port    = 0
-      protocol   = "-1"
-      cidr_block = "0.0.0.0/0"
-    },
-    {
-      rule_no         = 101
-      action          = "allow"
-      from_port       = 0
-      to_port         = 0
-      protocol        = "-1"
-      ipv6_cidr_block = "::/0"
-    },
-  ]
-}
-
-variable "default_network_acl_egress" {
-  description = "List of maps of egress rules to set on the Default Network ACL"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_no    = 100
-      action     = "allow"
-      from_port  = 0
-      to_port    = 0
-      protocol   = "-1"
-      cidr_block = "0.0.0.0/0"
-    },
-    {
-      rule_no         = 101
-      action          = "allow"
-      from_port       = 0
-      to_port         = 0
-      protocol        = "-1"
-      ipv6_cidr_block = "::/0"
-    },
-  ]
-}
-
-variable "public_inbound_acl_rules" {
-  description = "Public subnets inbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "public_outbound_acl_rules" {
-  description = "Public subnets outbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "private_inbound_acl_rules" {
-  description = "Private subnets inbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "private_outbound_acl_rules" {
-  description = "Private subnets outbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "outpost_inbound_acl_rules" {
-  description = "Outpost subnets inbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "outpost_outbound_acl_rules" {
-  description = "Outpost subnets outbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "intra_inbound_acl_rules" {
-  description = "Intra subnets inbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "intra_outbound_acl_rules" {
-  description = "Intra subnets outbound network ACLs"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "database_inbound_acl_rules" {
-  description = "Database subnets inbound network ACL rules"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "database_outbound_acl_rules" {
-  description = "Database subnets outbound network ACL rules"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "redshift_inbound_acl_rules" {
-  description = "Redshift subnets inbound network ACL rules"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "redshift_outbound_acl_rules" {
-  description = "Redshift subnets outbound network ACL rules"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "elasticache_inbound_acl_rules" {
-  description = "Elasticache subnets inbound network ACL rules"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "elasticache_outbound_acl_rules" {
-  description = "Elasticache subnets outbound network ACL rules"
-  type        = list(map(string))
-
-  default = [
-    {
-      rule_number = 100
-      rule_action = "allow"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_block  = "0.0.0.0/0"
-    },
-  ]
-}
-
-variable "manage_default_security_group" {
-  description = "Should be true to adopt and manage default security group"
-  type        = bool
-  default     = false
-}
-
-variable "default_security_group_name" {
-  description = "Name to be used on the default security group"
-  type        = string
-  default     = null
-}
-
-variable "default_security_group_ingress" {
-  description = "List of maps of ingress rules to set on the default security group"
-  type        = list(map(string))
-  default     = []
-}
-
-variable "enable_flow_log" {
-  description = "Whether or not to enable VPC Flow Logs"
-  type        = bool
-  default     = false
-}
-
-variable "default_security_group_egress" {
-  description = "List of maps of egress rules to set on the default security group"
-  type        = list(map(string))
-  default     = []
-}
-
-variable "default_security_group_tags" {
-  description = "Additional tags for the default security group"
-  type        = map(string)
-  default     = {}
-}
-
-variable "create_flow_log_cloudwatch_log_group" {
-  description = "Whether to create CloudWatch log group for VPC Flow Logs"
-  type        = bool
-  default     = false
-}
-
-variable "create_flow_log_cloudwatch_iam_role" {
-  description = "Whether to create IAM role for VPC Flow Logs"
-  type        = bool
-  default     = false
-}
-
-variable "flow_log_traffic_type" {
-  description = "The type of traffic to capture. Valid values: ACCEPT, REJECT, ALL."
-  type        = string
-  default     = "ALL"
-}
-
-variable "flow_log_destination_type" {
-  description = "Type of flow log destination. Can be s3 or cloud-watch-logs."
-  type        = string
-  default     = "cloud-watch-logs"
-}
-
-variable "flow_log_log_format" {
-  description = "The fields to include in the flow log record, in the order in which they should appear."
-  type        = string
-  default     = null
-}
-
-variable "flow_log_destination_arn" {
-  description = "The ARN of the CloudWatch log group or S3 bucket where VPC Flow Logs will be pushed. If this ARN is a S3 bucket the appropriate permissions need to be set on that bucket's policy. When create_flow_log_cloudwatch_log_group is set to false this argument must be provided."
-  type        = string
-  default     = ""
-}
-
-variable "flow_log_cloudwatch_iam_role_arn" {
-  description = "The ARN for the IAM role that's used to post flow logs to a CloudWatch Logs log group. When flow_log_destination_arn is set to ARN of Cloudwatch Logs, this argument needs to be provided."
-  type        = string
-  default     = ""
-}
-
-variable "flow_log_cloudwatch_log_group_name_prefix" {
-  description = "Specifies the name prefix of CloudWatch Log Group for VPC flow logs."
-  type        = string
-  default     = "/aws/vpc-flow-log/"
-}
-
-variable "flow_log_cloudwatch_log_group_retention_in_days" {
-  description = "Specifies the number of days you want to retain log events in the specified log group for VPC flow logs."
-  type        = number
-  default     = null
-}
-
-variable "flow_log_cloudwatch_log_group_kms_key_id" {
-  description = "The ARN of the KMS Key to use when encrypting log data for VPC flow logs."
-  type        = string
-  default     = null
-}
-
-variable "flow_log_max_aggregation_interval" {
-  description = "The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. Valid Values: `60` seconds or `600` seconds."
-  type        = number
-  default     = 600
-}
-
-variable "create_igw" {
-  description = "Controls if an Internet Gateway is created for public subnets and the related routes that connect them."
-  type        = bool
-  default     = true
-}
-
-variable "create_egress_only_igw" {
-  description = "Controls if an Egress Only Internet Gateway is created and its related routes."
-  type        = bool
-  default     = true
-}
-
-variable "outpost_arn" {
-  description = "ARN of Outpost you want to create a subnet in."
-  type        = string
-  default     = null
-}
-
-variable "outpost_az" {
-  description = "AZ where Outpost is anchored."
-  type        = string
-  default     = null
-}
-
-variable "flow_log_file_format" {
-  description = "(Optional) The format for the flow log. Valid values: `plain-text`, `parquet`."
-  type        = string
-  default     = "plain-text"
-  validation {
-    condition = can(regex("^(plain-text|parquet)$",
-    var.flow_log_file_format))
-    error_message = "ERROR valid values: plain-text, parquet."
-  }
-}
-
-variable "flow_log_hive_compatible_partitions" {
-  description = "(Optional) Indicates whether to use Hive-compatible prefixes for flow logs stored in Amazon S3."
-  type        = bool
-  default     = false
-}
-
-variable "flow_log_per_hour_partition" {
-  description = "(Optional) Indicates whether to partition the flow log per hour. This reduces the cost and response time for queries."
+variable "create_lambda_function_url" {
+  description = "Controls whether the Lambda Function URL resource should be created"
   type        = bool
   default     = false
 }
 
 variable "putin_khuylo" {
   description = "Do you agree that Putin doesn't respect Ukrainian sovereignty and territorial integrity? More info: https://en.wikipedia.org/wiki/Putin_khuylo!"
+  type        = bool
+  default     = true
+}
+
+###########
+# Function
+###########
+
+variable "lambda_at_edge" {
+  description = "Set this to true if using Lambda@Edge, to enable publishing, limit the timeout, and allow edgelambda.amazonaws.com to invoke the function"
+  type        = bool
+  default     = false
+}
+
+variable "function_name" {
+  description = "A unique name for your Lambda Function"
+  type        = string
+  default     = ""
+}
+
+variable "handler" {
+  description = "Lambda Function entrypoint in your code"
+  type        = string
+  default     = ""
+}
+
+variable "runtime" {
+  description = "Lambda Function runtime"
+  type        = string
+  default     = ""
+
+  #  validation {
+  #    condition     = can(var.create && contains(["nodejs10.x", "nodejs12.x", "java8", "java11", "python2.7", " python3.6", "python3.7", "python3.8", "dotnetcore2.1", "dotnetcore3.1", "go1.x", "ruby2.5", "ruby2.7", "provided"], var.runtime))
+  #    error_message = "The runtime value must be one of supported by AWS Lambda."
+  #  }
+}
+
+variable "lambda_role" {
+  description = " IAM role ARN attached to the Lambda Function. This governs both who / what can invoke your Lambda Function, as well as what resources our Lambda Function has access to. See Lambda Permission Model for more details."
+  type        = string
+  default     = ""
+}
+
+variable "description" {
+  description = "Description of your Lambda Function (or Layer)"
+  type        = string
+  default     = ""
+}
+
+variable "layers" {
+  description = "List of Lambda Layer Version ARNs (maximum of 5) to attach to your Lambda Function."
+  type        = list(string)
+  default     = null
+}
+
+variable "architectures" {
+  description = "Instruction set architecture for your Lambda function. Valid values are [\"x86_64\"] and [\"arm64\"]."
+  type        = list(string)
+  default     = null
+}
+
+variable "kms_key_arn" {
+  description = "The ARN of KMS key to use by your Lambda Function"
+  type        = string
+  default     = null
+}
+
+variable "memory_size" {
+  description = "Amount of memory in MB your Lambda Function can use at runtime. Valid value between 128 MB to 10,240 MB (10 GB), in 64 MB increments."
+  type        = number
+  default     = 128
+}
+
+variable "ephemeral_storage_size" {
+  description = "Amount of ephemeral storage (/tmp) in MB your Lambda Function can use at runtime. Valid value between 512 MB to 10,240 MB (10 GB)."
+  type        = number
+  default     = 512
+}
+
+variable "publish" {
+  description = "Whether to publish creation/change as new Lambda Function Version."
+  type        = bool
+  default     = false
+}
+
+variable "reserved_concurrent_executions" {
+  description = "The amount of reserved concurrent executions for this Lambda Function. A value of 0 disables Lambda Function from being triggered and -1 removes any concurrency limitations. Defaults to Unreserved Concurrency Limits -1."
+  type        = number
+  default     = -1
+}
+
+variable "timeout" {
+  description = "The amount of time your Lambda Function has to run in seconds."
+  type        = number
+  default     = 3
+}
+
+variable "dead_letter_target_arn" {
+  description = "The ARN of an SNS topic or SQS queue to notify when an invocation fails."
+  type        = string
+  default     = null
+}
+
+variable "environment_variables" {
+  description = "A map that defines environment variables for the Lambda Function."
+  type        = map(string)
+  default     = {}
+}
+
+variable "tracing_mode" {
+  description = "Tracing mode of the Lambda Function. Valid value can be either PassThrough or Active."
+  type        = string
+  default     = null
+}
+
+variable "vpc_subnet_ids" {
+  description = "List of subnet ids when Lambda Function should run in the VPC. Usually private or intra subnets."
+  type        = list(string)
+  default     = null
+}
+
+variable "vpc_security_group_ids" {
+  description = "List of security group ids when Lambda Function should run in the VPC."
+  type        = list(string)
+  default     = null
+}
+
+variable "tags" {
+  description = "A map of tags to assign to resources."
+  type        = map(string)
+  default     = {}
+}
+
+variable "s3_object_tags" {
+  description = "A map of tags to assign to S3 bucket object."
+  type        = map(string)
+  default     = {}
+}
+
+variable "s3_object_tags_only" {
+  description = "Set to true to not merge tags with s3_object_tags. Useful to avoid breaching S3 Object 10 tag limit."
+  type        = bool
+  default     = false
+}
+
+variable "package_type" {
+  description = "The Lambda deployment package type. Valid options: Zip or Image"
+  type        = string
+  default     = "Zip"
+}
+
+variable "image_uri" {
+  description = "The ECR image URI containing the function's deployment package."
+  type        = string
+  default     = null
+}
+
+variable "image_config_entry_point" {
+  description = "The ENTRYPOINT for the docker image"
+  type        = list(string)
+  default     = []
+
+}
+variable "image_config_command" {
+  description = "The CMD for the docker image"
+  type        = list(string)
+  default     = []
+}
+
+variable "image_config_working_directory" {
+  description = "The working directory for the docker image"
+  type        = string
+  default     = null
+}
+
+###############
+# Function URL
+###############
+
+variable "create_unqualified_alias_lambda_function_url" {
+  description = "Whether to use unqualified alias pointing to $LATEST version in Lambda Function URL"
+  type        = bool
+  default     = true
+}
+
+variable "authorization_type" {
+  description = "The type of authentication that the Lambda Function URL uses. Set to 'AWS_IAM' to restrict access to authenticated IAM users only. Set to 'NONE' to bypass IAM authentication and create a public endpoint."
+  type        = string
+  default     = "NONE"
+}
+
+variable "cors" {
+  description = "CORS settings to be used by the Lambda Function URL"
+  type        = any
+  default     = {}
+}
+
+########
+# Layer
+########
+
+variable "layer_name" {
+  description = "Name of Lambda Layer to create"
+  type        = string
+  default     = ""
+}
+
+variable "layer_skip_destroy" {
+  description = "Whether to retain the old version of a previously deployed Lambda Layer."
+  type        = bool
+  default     = false
+}
+
+variable "license_info" {
+  description = "License info for your Lambda Layer. Eg, MIT or full url of a license."
+  type        = string
+  default     = ""
+}
+
+variable "compatible_runtimes" {
+  description = "A list of Runtimes this layer is compatible with. Up to 5 runtimes can be specified."
+  type        = list(string)
+  default     = []
+}
+
+variable "compatible_architectures" {
+  description = "A list of Architectures Lambda layer is compatible with. Currently x86_64 and arm64 can be specified."
+  type        = list(string)
+  default     = null
+}
+
+############################
+# Lambda Async Event Config
+############################
+
+variable "create_async_event_config" {
+  description = "Controls whether async event configuration for Lambda Function/Alias should be created"
+  type        = bool
+  default     = false
+}
+
+variable "create_current_version_async_event_config" {
+  description = "Whether to allow async event configuration on current version of Lambda Function (this will revoke permissions from previous version because Terraform manages only current resources)"
+  type        = bool
+  default     = true
+}
+
+variable "create_unqualified_alias_async_event_config" {
+  description = "Whether to allow async event configuration on unqualified alias pointing to $LATEST version"
+  type        = bool
+  default     = true
+}
+
+variable "maximum_event_age_in_seconds" {
+  description = "Maximum age of a request that Lambda sends to a function for processing in seconds. Valid values between 60 and 21600."
+  type        = number
+  default     = null
+}
+
+variable "maximum_retry_attempts" {
+  description = "Maximum number of times to retry when the function returns an error. Valid values between 0 and 2. Defaults to 2."
+  type        = number
+  default     = null
+}
+
+variable "destination_on_failure" {
+  description = "Amazon Resource Name (ARN) of the destination resource for failed asynchronous invocations"
+  type        = string
+  default     = null
+}
+
+variable "destination_on_success" {
+  description = "Amazon Resource Name (ARN) of the destination resource for successful asynchronous invocations"
+  type        = string
+  default     = null
+}
+
+##########################
+# Provisioned Concurrency
+##########################
+
+variable "provisioned_concurrent_executions" {
+  description = "Amount of capacity to allocate. Set to 1 or greater to enable, or set to 0 to disable provisioned concurrency."
+  type        = number
+  default     = -1
+}
+
+############################################
+# Lambda Permissions (for allowed triggers)
+############################################
+
+variable "create_current_version_allowed_triggers" {
+  description = "Whether to allow triggers on current version of Lambda Function (this will revoke permissions from previous version because Terraform manages only current resources)"
+  type        = bool
+  default     = true
+}
+
+variable "create_unqualified_alias_allowed_triggers" {
+  description = "Whether to allow triggers on unqualified alias pointing to $LATEST version"
+  type        = bool
+  default     = true
+}
+
+variable "allowed_triggers" {
+  description = "Map of allowed triggers to create Lambda permissions"
+  type        = map(any)
+  default     = {}
+}
+
+############################################
+# Lambda Event Source Mapping
+############################################
+
+variable "event_source_mapping" {
+  description = "Map of event source mapping"
+  type        = any
+  default     = {}
+}
+
+#################
+# CloudWatch Logs
+#################
+
+variable "use_existing_cloudwatch_log_group" {
+  description = "Whether to use an existing CloudWatch log group or create new"
+  type        = bool
+  default     = false
+}
+
+variable "cloudwatch_logs_retention_in_days" {
+  description = "Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653."
+  type        = number
+  default     = null
+}
+
+variable "cloudwatch_logs_kms_key_id" {
+  description = "The ARN of the KMS Key to use when encrypting log data."
+  type        = string
+  default     = null
+}
+
+variable "cloudwatch_logs_tags" {
+  description = "A map of tags to assign to the resource."
+  type        = map(string)
+  default     = {}
+}
+
+######
+# IAM
+######
+
+variable "role_name" {
+  description = "Name of IAM role to use for Lambda Function"
+  type        = string
+  default     = null
+}
+
+variable "role_description" {
+  description = "Description of IAM role to use for Lambda Function"
+  type        = string
+  default     = null
+}
+
+variable "role_path" {
+  description = "Path of IAM role to use for Lambda Function"
+  type        = string
+  default     = null
+}
+
+variable "role_force_detach_policies" {
+  description = "Specifies to force detaching any policies the IAM role has before destroying it."
+  type        = bool
+  default     = true
+}
+
+variable "role_permissions_boundary" {
+  description = "The ARN of the policy that is used to set the permissions boundary for the IAM role used by Lambda Function"
+  type        = string
+  default     = null
+}
+
+variable "role_tags" {
+  description = "A map of tags to assign to IAM role"
+  type        = map(string)
+  default     = {}
+}
+
+###########
+# Policies
+###########
+
+variable "attach_cloudwatch_logs_policy" {
+  description = "Controls whether CloudWatch Logs policy should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = true
+}
+
+variable "attach_dead_letter_policy" {
+  description = "Controls whether SNS/SQS dead letter notification policy should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "attach_network_policy" {
+  description = "Controls whether VPC/network policy should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "attach_tracing_policy" {
+  description = "Controls whether X-Ray tracing policy should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "attach_async_event_policy" {
+  description = "Controls whether async event policy should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "attach_policy_json" {
+  description = "Controls whether policy_json should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "attach_policy_jsons" {
+  description = "Controls whether policy_jsons should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "attach_policy" {
+  description = "Controls whether policy should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "attach_policies" {
+  description = "Controls whether list of policies should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "policy_path" {
+  description = "Path of policies to that should be added to IAM role for Lambda Function"
+  type        = string
+  default     = null
+}
+
+variable "number_of_policy_jsons" {
+  description = "Number of policies JSON to attach to IAM role for Lambda Function"
+  type        = number
+  default     = 0
+}
+
+variable "number_of_policies" {
+  description = "Number of policies to attach to IAM role for Lambda Function"
+  type        = number
+  default     = 0
+}
+
+variable "attach_policy_statements" {
+  description = "Controls whether policy_statements should be added to IAM role for Lambda Function"
+  type        = bool
+  default     = false
+}
+
+variable "trusted_entities" {
+  description = "List of additional trusted entities for assuming Lambda Function role (trust relationship)"
+  type        = any
+  default     = []
+}
+
+variable "assume_role_policy_statements" {
+  description = "Map of dynamic policy statements for assuming Lambda Function role (trust relationship)"
+  type        = any
+  default     = {}
+}
+
+variable "policy_json" {
+  description = "An additional policy document as JSON to attach to the Lambda Function role"
+  type        = string
+  default     = null
+}
+
+variable "policy_jsons" {
+  description = "List of additional policy documents as JSON to attach to Lambda Function role"
+  type        = list(string)
+  default     = []
+}
+
+variable "policy" {
+  description = "An additional policy document ARN to attach to the Lambda Function role"
+  type        = string
+  default     = null
+}
+
+variable "policies" {
+  description = "List of policy statements ARN to attach to Lambda Function role"
+  type        = list(string)
+  default     = []
+}
+
+variable "policy_statements" {
+  description = "Map of dynamic policy statements to attach to Lambda Function role"
+  type        = any
+  default     = {}
+}
+
+variable "file_system_arn" {
+  description = "The Amazon Resource Name (ARN) of the Amazon EFS Access Point that provides access to the file system."
+  type        = string
+  default     = null
+}
+
+variable "file_system_local_mount_path" {
+  description = "The path where the function can access the file system, starting with /mnt/."
+  type        = string
+  default     = null
+}
+
+##########################
+# Build artifact settings
+##########################
+
+variable "artifacts_dir" {
+  description = "Directory name where artifacts should be stored"
+  type        = string
+  default     = "builds"
+}
+
+variable "s3_prefix" {
+  description = "Directory name where artifacts should be stored in the S3 bucket. If unset, the path from `artifacts_dir` is used"
+  type        = string
+  default     = null
+}
+
+variable "ignore_source_code_hash" {
+  description = "Whether to ignore changes to the function's source code hash. Set to true if you manage infrastructure and code deployments separately."
+  type        = bool
+  default     = false
+}
+
+variable "local_existing_package" {
+  description = "The absolute path to an existing zip-file to use"
+  type        = string
+  default     = null
+}
+
+variable "s3_existing_package" {
+  description = "The S3 bucket object with keys bucket, key, version pointing to an existing zip-file to use"
+  type        = map(string)
+  default     = null
+}
+
+variable "store_on_s3" {
+  description = "Whether to store produced artifacts on S3 or locally."
+  type        = bool
+  default     = false
+}
+
+variable "s3_object_storage_class" {
+  description = "Specifies the desired Storage Class for the artifact uploaded to S3. Can be either STANDARD, REDUCED_REDUNDANCY, ONEZONE_IA, INTELLIGENT_TIERING, or STANDARD_IA."
+  type        = string
+  default     = "ONEZONE_IA" # Cheaper than STANDARD and it is enough for Lambda deployments
+}
+
+variable "s3_bucket" {
+  description = "S3 bucket to store artifacts"
+  type        = string
+  default     = null
+}
+
+variable "s3_acl" {
+  description = "The canned ACL to apply. Valid values are private, public-read, public-read-write, aws-exec-read, authenticated-read, bucket-owner-read, and bucket-owner-full-control. Defaults to private."
+  type        = string
+  default     = "private"
+}
+
+variable "s3_server_side_encryption" {
+  description = "Specifies server-side encryption of the object in S3. Valid values are \"AES256\" and \"aws:kms\"."
+  type        = string
+  default     = null
+}
+
+variable "source_path" {
+  description = "The absolute path to a local file or directory containing your Lambda source code"
+  type        = any # string | list(string | map(any))
+  default     = null
+}
+
+variable "hash_extra" {
+  description = "The string to add into hashing function. Useful when building same source path for different functions."
+  type        = string
+  default     = ""
+}
+
+variable "build_in_docker" {
+  description = "Whether to build dependencies in Docker"
+  type        = bool
+  default     = false
+}
+
+variable "docker_file" {
+  description = "Path to a Dockerfile when building in Docker"
+  type        = string
+  default     = ""
+}
+
+variable "docker_build_root" {
+  description = "Root dir where to build in Docker"
+  type        = string
+  default     = ""
+}
+
+variable "docker_image" {
+  description = "Docker image to use for the build"
+  type        = string
+  default     = ""
+}
+
+variable "docker_with_ssh_agent" {
+  description = "Whether to pass SSH_AUTH_SOCK into docker environment or not"
+  type        = bool
+  default     = false
+}
+
+variable "docker_pip_cache" {
+  description = "Whether to mount a shared pip cache folder into docker environment or not"
+  type        = any
+  default     = null
+}
+
+variable "recreate_missing_package" {
+  description = "Whether to recreate missing Lambda package if it is missing locally or not"
   type        = bool
   default     = true
 }
