@@ -100,8 +100,264 @@ module "ec2-005" {
   subnet_id              = module.vpc.private_subnets[0]
 
   tags = {
+    deployment-type     = "uc-terraform-demo"
+    environment         = "poc"
+    project-id          = "landers-poc-002"
+  }
+}
+
+module "ec2-006" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-006"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
     deployment-type       = "uc-terraform-demo"
     environment           = "poc"
     project-id            = "landers-poc-002"
   }
 }
+
+module "ec2-007" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-007"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-008" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-008"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-009" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-009"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-010" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-010"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-011" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-011"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-012" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-012"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-013" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-013"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-014" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-014"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-015" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-015"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-016" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-016"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-017" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-017"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-018" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-018"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-019" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-019"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
+module "ec2-020" {
+  source = "./modules/module-ec2"
+
+  name = "ec2-instance-020"
+
+  ami                    = "ami-0022f774911c1d690"
+  instance_type          = "t2.nano"
+  monitoring             = true
+  subnet_id              = module.vpc.private_subnets[0]
+
+  tags = {
+    deployment-type       = "uc-terraform-demo"
+    environment           = "poc"
+    project-id            = "landers-poc-002"
+  }
+}
+
