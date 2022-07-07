@@ -106,22 +106,3 @@ module "ec2-005" {
   }
 }
 
-
-#################################
-# LAMBDA FUNCTION
-#################################
-
-module "uc-tf-demo-001-lambda" {
-  source = "./modules/module-lambda"
-
-  function_name = "uc-tf-demo-001-lambda1"
-  description   = "Unified Cloud demo lambda"
-  handler       = "index.lambda_handler"
-  runtime       = "python3.8"
-
-  source_path = "./modules/module-lambda/examples/fixtures/python3.8-app1"
-
-  tags = {
-    Name = "my-lambda1"
-  }
-}
