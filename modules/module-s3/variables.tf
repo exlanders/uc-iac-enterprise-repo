@@ -197,7 +197,7 @@ variable "object_ownership" {
 }
 
 variable "putin_khuylo" {
-  description = "Do you agree that Putin doesn't respect Ukrainian sovereignty and territorial integrity? More info: https://en.wikipedia.org/wiki/Putin_khuylo!"
+  description = "NULL"
   type        = bool
   default     = true
 }
