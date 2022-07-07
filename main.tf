@@ -21,21 +21,27 @@ module "vpc" {
 
 }
 
+##### CREATE SOME EC2's
+
+ec2-instance-type = "t2.nano"
+
+ec2-tags  = {
+  deployment-type     = "uc-terraform-demo"
+    environment         = "poc"
+    project-id        = "landers-poc-002"
+}
+
 module "ec2-001" {
   source = "./modules/module-ec2"
 
   name = "ec2-instance-001"
 
   ami                    = "ami-0022f774911c1d690"
-  instance_type          = "t2.micro"
+  instance_type          = ec2-instance-type
   monitoring             = true
   subnet_id              = module.vpc.private_subnets[0]
 
-  tags = {
-    deployment-type     = "uc-terraform-demo"
-    environment         = "poc"
-    project-id        = "landers-poc-002"
-  }
+  tags = ec2-tags
 }
 
 module "ec2-002" {
@@ -44,15 +50,11 @@ module "ec2-002" {
   name = "ec2-instance-002"
 
   ami                    = "ami-0022f774911c1d690"
-  instance_type          = "t2.micro"
+  instance_type          = ec2-instance-type
   monitoring             = true
   subnet_id              = module.vpc.private_subnets[0]
 
-  tags = {
-    deployment-type     = "uc-terraform-demo"
-    environment         = "poc"
-    project-id        = "landers-poc-002"
-  }
+  tags = ec2-tags
 }
 
 module "ec2-003" {
@@ -61,15 +63,11 @@ module "ec2-003" {
   name = "ec2-instance-003"
 
   ami                    = "ami-0022f774911c1d690"
-  instance_type          = "t2.micro"
+  instance_type          = ec2-instance-type
   monitoring             = true
   subnet_id              = module.vpc.private_subnets[0]
 
-  tags = {
-    deployment-type     = "uc-terraform-demo"
-    environment         = "poc"
-    project-id        = "landers-poc-002"
-  }
+  tags = ec2-tags
 }
 module "ec2-004" {
   source = "./modules/module-ec2"
@@ -77,15 +75,11 @@ module "ec2-004" {
   name = "ec2-instance-004"
 
   ami                    = "ami-0022f774911c1d690"
-  instance_type          = "t2.micro"
+  instance_type          = ec2-instance-type
   monitoring             = true
   subnet_id              = module.vpc.private_subnets[0]
 
-  tags = {
-    deployment-type     = "uc-terraform-demo"
-    environment         = "poc"
-    project-id        = "landers-poc-002"
-  }
+  tags = ec2-tags
 }
 
 module "ec2-005" {
@@ -94,13 +88,9 @@ module "ec2-005" {
   name = "ec2-instance-005"
 
   ami                    = "ami-0022f774911c1d690"
-  instance_type          = "t2.micro"
+  instance_type          = ec2-instance-type
   monitoring             = true
   subnet_id              = module.vpc.private_subnets[0]
 
-  tags = {
-    deployment-type     = "uc-terraform-demo"
-    environment         = "poc"
-    project-id        = "landers-poc-002"
-  }
+  tags = ec2-tags
 }
