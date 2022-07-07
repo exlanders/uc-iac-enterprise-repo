@@ -105,3 +105,46 @@ module "ec2-005" {
     project-id            = "landers-poc-002"
   }
 }
+
+
+#################################
+# LAMBDA FUNCTION
+#################################
+
+provider "aws" {
+  region = "eu-east-1"
+  #  region = "us-east-1"
+
+  # Make it faster by skipping something
+  skip_get_ec2_platforms      = true
+  skip_metadata_api_check     = true
+  skip_region_validation      = true
+  skip_credentials_validation = true
+  skip_requesting_account_id  = true
+}
+
+resource "random_pet" "this" {
+  length = 2
+}
+
+
+module "lambda_function" {
+  source = "../../"
+
+  publish = true
+
+  function_name = "uc-tf-demo-001-lambda"
+  handler       = "index.lambda_handler"
+  runtime       = "nodejs14.x"
+
+  source_path = [
+    #    {
+    #      pip_requirements = "${path.module}/../fixtures/python3.8-app1/requirements.txt"
+    #      pip_requirements = "${path.module}/../deploy/requirements.txt"
+    #    },
+    "${path.module}/../fixtures/nodejs14.x-app1/index.js",
+  ]
+
+}
+
+
