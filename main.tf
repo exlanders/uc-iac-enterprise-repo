@@ -15,7 +15,7 @@ module "vpc" {
   tags = {
     deployment-type   = "terraform"
     environment       = "dev"
-    project-id        = "us-poc-001"
+    project-id        = "uc-poc-001"
     deploy-method     = "terraform"
   }
 
