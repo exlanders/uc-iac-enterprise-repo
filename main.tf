@@ -144,7 +144,7 @@ resource "random_pet" "this" {
 #}
 
 module "lambda_function" {
-  source = "../../"
+  source = "./modules/module-lambda"
 
   publish = true
 
