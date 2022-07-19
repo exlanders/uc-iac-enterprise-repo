@@ -13,7 +13,7 @@ module "vpc" {
   enable_vpn_gateway = true
 
   tags = {
-    deployment-type   = "terraform"
+    deployment-type   = "uc-terraform-demo"
     environment       = "dev"
     project-id        = "uc-poc-001"
     deploy-method     = "terraform"
